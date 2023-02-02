@@ -1,13 +1,15 @@
 from flask import Flask
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
 
-# TODO E Wrtie Cache Object Array and API
+# TODO E Write Cache Object Array and API
 
 def create_fake_user_data() -> dict:
     '''
-    Createssample fake user data using data structure defined in deliverables
+    Create ssample fake user data using data structure defined in deliverables
 
     Usernames are user1,user2....
     User data structure {User : [[Caches], [Friends]]}
@@ -16,8 +18,6 @@ def create_fake_user_data() -> dict:
 
     Useri has completed element i in completedCacheList and dict is
     indexed by user
-
-    :return:
     '''
     returnDict = {}
 
@@ -29,7 +29,16 @@ def create_fake_user_data() -> dict:
         returnDict[user_name] = [[completedCacheList[userNumber]], friendsRelations[userNumber]]
     return returnDict
 
+
 friendDataStructure = create_fake_user_data()
+
+
+class UserData(Resource):
+    def get(self):
+        return friendDataStructure
+
+
+api.add_resource(UserData, "/UserData")  # configure url to acsess resource
 
 
 @app.route("/")
@@ -37,5 +46,6 @@ def hello_world():
     return "<p>hello world</p>"
 
 
+# change for production env
 if __name__ == '__main__':
     app.run(debug=True)
