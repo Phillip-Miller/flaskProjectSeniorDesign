@@ -1,15 +1,7 @@
 from flask_restful import Api, Resource
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import sys
 from datetime import datetime
-
-# eventually want to mock and insert dummy data instead of storing here
-# need to figure out better logging methods
-list_of_locations = {1: "Immaculata"}
-
-friendDataStructure = {"user0": [["Immaculata"], ["user1"]], "user1": [["Saints"], ["user0", "user4"]],
-                       "user2": [["UC's"], ["user4"]], "user3": [["BEC"], []], "user4": [["SLP"], ["user1", "user2"]]}
 
 app = Flask(__name__)
 api = Api(app)
@@ -52,11 +44,12 @@ class UserModel(db.Model):
 
 class Location(Resource):
     def get(self):
-        return list_of_locations
+        pass
 
     def put(self):
         data = request.get_json()
         print(data)
+        app.loger.info(f"Location Post Request with {data}")
         loc = LocationModel(location_name=data['location_name'], id_hash=data['location_name'])
         db.session.add(loc)
         db.session.commit()
@@ -83,18 +76,24 @@ class UserData(Resource):
 
     def put(self, user_hash):
         data = request.json
+        app.logger.info(f"User Post Request -> {data}")
+
         if db.session.query(UserModel.user).filter_by(user=user_hash).first() is not None:  # Already Exists
             # @FIXME implement a deep copy? or better way to update a row?
             user = UserModel.query.filter_by(user=user_hash).first()
             db.session.commit()
+            app.logger.info(f"User Post Edit -> {repr(user)}")
+
             return 200
-            # log this> jsonify(repr(user))
+            # log this> jsonify()
         else:  # create new resource
             try:
                 score = int(data["score"])
                 new_user = UserModel(user=user_hash, score=score)
                 db.session.add(new_user)
                 db.session.commit()
+                app.logger.info(f"User Post New -> {repr(new_user)}")
+
                 return 201
             except:
                 return 500
