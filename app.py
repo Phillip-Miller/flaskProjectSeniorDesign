@@ -1,11 +1,10 @@
-from flask_restful import Api, Resource
 from flask import request, jsonify, render_template
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-import connexion
 
-app = connexion.App(__name__, specification_dir="./")
-app.add_api("swagger.yml")
+import config
+from models import User
+
+app = config.connex_app
+app.add_api(config.basedir / "swagger.yml")
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # /// relative path  //// absl
@@ -112,7 +111,8 @@ app.add_api("swagger.yml")
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    users = User.query.all()
+    return render_template("home.html", users=users)
 
 
 # change for production env
