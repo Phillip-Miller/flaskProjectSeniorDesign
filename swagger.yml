@@ -1,0 +1,96 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "Geocache Flask REST API"
+  description: "API to manipulate Location objects and User Objects"
+  version: "0.0.1"
+servers:
+  - url: "/api"
+
+
+components:
+  schemas:
+    User:
+      type: "object"
+      required:
+        - "username"
+      properties:
+        username:
+          type: "string"
+        score:
+          type: "integer"
+  parameters:
+    username:
+      name: "username"
+      description: "Last name of the user to get"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+paths:
+  #relative url of api
+  /user:
+    get:
+      operationId: "user.read_all"
+      tags:
+        - "User"
+      summary: "Read the list of users -- this will eventually be limited in size"
+      responses:
+        "200":
+          description: "Successfully read user list"
+    post:
+      operationId: "user.create"
+      tags:
+        - "User"
+      summary: "Create a new user"
+      requestBody:
+        description: "User to create"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "user"
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: "Successfully created user"
+
+  /user/{username}:
+    get:
+      operationId: "user.read_one"
+      tags:
+        - "User"
+      summary: "Read user object from user name"
+      parameters:
+        - $ref: "#/components/parameters/username"
+      responses:
+        "200":
+          description: "Successfully read user"
+    put:
+      tags:
+        - "User"
+      operationId: "user.update"
+      summary: "Update a user"
+      parameters:
+        - $ref: "#/components/parameters/username"
+      responses:
+        "200":
+          description: "Successfully updated user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "user"
+              $ref: "#/components/schemas/User"
+    delete:
+      tags:
+        - "User"
+      operationId: "user.delete"
+      summary: "Delete a user"
+      parameters:
+        - $ref: "#/components/parameters/username"
+      responses:
+        "204":
+          description: "Successfully deleted user"
