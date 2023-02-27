@@ -10,10 +10,17 @@
 <h1>
     Hello, Geocachers:
 </h1>
+
+{% for user in users %}
+<h2>{{ user.username }} {{ user.score }}</h2>
 <ul>
-    {% for user in users %}
-    <li>{{ user.username }} {{ user.score }}</li>
+    {% for follower in user.follower %}
+    <li>
+        {Hello, { follower.id }}
+    </li>
     {% endfor %}
 </ul>
+{% endfor %}
+
 </body>
 </html>

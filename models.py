@@ -14,12 +14,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # this autoincrements by default
     username = db.Column(db.String(32), unique=True)
     score = db.Column(db.Integer, default=0)
-    followers = db.relationship(
+    following = db.relationship(
         "User",
         secondary=follows,
         primaryjoin=(follows.c.follower_id == id),
         secondaryjoin=(follows.c.followed_id == id),
-        backref=db.backref("follows", lazy="dynamic"),
+        backref=db.backref("followed_by", lazy="dynamic"),
         lazy="dynamic"
     )
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -34,6 +34,8 @@ class User(db.Model):
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        include_fk = True
+        include_relationships = True
         load_instance = True
         sqla_session = db.session
 

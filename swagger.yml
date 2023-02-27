@@ -20,16 +20,16 @@ components:
           type: string
         score:
           type: integer
-    #        friends: #array of friends expecting int for id number
-    #          type: array
-    #          items:
-    #            type: integer
-    
+        following:
+          type: array
+          items:
+            type: integer
+
     #define location schema that you want passed here:
   parameters:
     username:
       name: "username"
-      description: "Last name of the user to get"
+      description: "pull by username"
       in: path
       required: True
       schema:
