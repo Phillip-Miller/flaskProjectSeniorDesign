@@ -27,13 +27,13 @@ components:
 
     #define location schema that you want passed here:
   parameters:
-    username:
-      name: "username"
-      description: "pull by username"
+    user_id:
+      name: "user_id"
+      description: "pull by user_id"
       in: path
       required: True
       schema:
-        type: "string"
+        type: integer
 
 paths:
   #relative url of api
@@ -63,14 +63,14 @@ paths:
         "201":
           description: "Successfully created user"
 
-  /user/{username}:
+  /user/{user_id}:
     get:
       operationId: "user.read_one"
       tags:
         - "User"
       summary: "Read user object from user name"
       parameters:
-        - $ref: "#/components/parameters/username"
+        - $ref: "#/components/parameters/user_id"
       responses:
         "200":
           description: "Successfully read user"
@@ -80,7 +80,7 @@ paths:
       operationId: "user.update"
       summary: "Update a user"
       parameters:
-        - $ref: "#/components/parameters/username"
+        - $ref: "#/components/parameters/user_id"
       responses:
         "200":
           description: "Successfully updated user"
@@ -96,7 +96,8 @@ paths:
       operationId: "user.delete"
       summary: "Delete a user"
       parameters:
-        - $ref: "#/components/parameters/username"
+        - $ref: "#/components/parameters/user_id"
       responses:
         "204":
           description: "Successfully deleted user"
+
