@@ -1,6 +1,4 @@
 from flask import abort, make_response
-
-from models import User
 from config import db, app
 from models import User, user_schema, users_schema
 

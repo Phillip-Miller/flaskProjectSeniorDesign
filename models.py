@@ -8,6 +8,7 @@ follows = db.Table('follows',
                    db.Column('follower_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'), primary_key=True))
 
+
 # https://hackmd.io/@jpshafto/H1VbmP3yOclass
 class User(db.Model):
     __tablename__ = "user"  # connects class definition to the right table
@@ -29,7 +30,9 @@ class User(db.Model):
 
     def __repr__(self):  # return dict format
         return str({"user": self.user, "score": {self.score}, "created": {str(self.date_created)}})
-class Cachelocations(db.Model):
+
+
+class CacheLocations(db.Model):
     __tablename__ = "cache_locations"
     id = db.Column(db.Integer, primary_key=True)
     cachename = db.Column(db.String(64))
@@ -46,6 +49,7 @@ class Cachelocations(db.Model):
     def __repr__(self):
         return str({"cache": self.cachename, "difficulty": self.difficulty, "created": {str(self.timestamp)}})
 
+
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
@@ -58,13 +62,15 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
+
 class CacheLocationsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Cachelocations
+        model = CacheLocations
         include_fk = True
         include_relationships = True
         load_instance = True
         sqla_session = db.session
+
 
 cache_location_schema = CacheLocationsSchema()
 cache_locations_schema = CacheLocationsSchema(many=True)

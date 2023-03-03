@@ -24,9 +24,10 @@ components:
           type: array
           items:
             type: integer
-
     Location:
       type: object
+      required:
+        - cachename
       properties:
         cachename:
           type: string
@@ -34,6 +35,9 @@ components:
           type: array
           items:
             type: number
+          oneOf:
+            - minItems: 2
+              maxItems: 2
         hints:
           type: string
         trivia:
@@ -151,57 +155,58 @@ paths:
       responses:
         "201":
           description: "Successfully created location"
+
   /location/{location_id}:
-        get:
-          operationId: "location.read_one"
-          tags:
-            - "Location"
-          summary: "Read location object from location id"
-          parameters:
-            - name: "location_id"
-              in: path
-              description: "pull by location id"
-              required: true
-              schema:
-                type: integer
-          responses:
-            "200":
-              description: "Successfully read location"
-        put:
-          tags:
-            - "Location"
-          operationId: "location.update"
-          summary: "Update a location"
-          parameters:
-            - name: "location_id"
-              in: path
-              description: "pull by location id"
-              required: true
-              schema:
-                type: integer
-          responses:
-            "200":
-              description: "Successfully updated location"
-          requestBody:
-            content:
-              application/json:
-                schema:
-                  x-body-name: "location"
-                  $ref: "#/components/schemas/Location"
-        delete:
-          tags:
-            - "Location"
-          operationId: "location.delete"
-          summary: "Delete a location"
-          parameters:
-            - name: "location_id"
-              in: path
-              description: "pull by location id"
-              required: true
-              schema:
-                type: integer
-          responses:
-            "204":
-              description: "Successfully deleted location"
+    get:
+      operationId: "location.read_one"
+      tags:
+        - "Location"
+      summary: "Read location object from location id"
+      parameters:
+        - name: "location_id"
+          in: path
+          description: "pull by location id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Successfully read location"
+    put:
+      tags:
+        - "Location"
+      operationId: "location.update"
+      summary: "Update a location"
+      parameters:
+        - name: "location_id"
+          in: path
+          description: "pull by location id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Successfully updated location"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "location"
+              $ref: "#/components/schemas/Location"
+    delete:
+      tags:
+        - "Location"
+      operationId: "location.delete"
+      summary: "Delete a location"
+      parameters:
+        - name: "location_id"
+          in: path
+          description: "pull by location id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: "Successfully deleted location"
 
 
