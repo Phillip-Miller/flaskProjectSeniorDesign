@@ -31,13 +31,10 @@ components:
       properties:
         cachename:
           type: string
-        coordinates:
-          type: array
-          items:
-            type: number
-          oneOf:
-            - minItems: 2
-              maxItems: 2
+        longitude:
+          type: number
+        latitude:
+          type: number
         hints:
           type: string
         trivia:

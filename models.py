@@ -36,11 +36,12 @@ class CacheLocations(db.Model):
     __tablename__ = "cache_locations"
     id = db.Column(db.Integer, primary_key=True)
     cachename = db.Column(db.String(64))
-    cache_coordinates = db.Column(db.Float(2))
+    longitude = db.Column(db.Float(4))
+    latitude = db.Column(db.Float(4))
     hints = db.Column(db.String(256))
     trivia = db.Column(db.String(256))
     difficulty = db.Column(db.SmallInteger)
-    radius_accuracy = db.Column(db.Integer)
+    radius = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __str__(self):
@@ -66,11 +67,9 @@ users_schema = UserSchema(many=True)
 class CacheLocationsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = CacheLocations
-        include_fk = True
-        include_relationships = True
         load_instance = True
         sqla_session = db.session
 
 
 cache_location_schema = CacheLocationsSchema()
-cache_locations_schema = CacheLocationsSchema(many=True)
+cache_locations_schema = CacheLocationsSchema()
