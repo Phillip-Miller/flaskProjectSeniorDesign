@@ -1,10 +1,13 @@
 from flask import request, jsonify, render_template
 import config
 import os
-from models import User
+from models import User,Cachelocations
+from config import db, app
+
 
 app = config.connex_app
 app.add_api(config.basedir / "swagger.yml")
+
 
 with app.app.app_context():
     db_active = False
@@ -25,7 +28,9 @@ with app.app.app_context():
 @app.route("/")
 def home():
     users = User.query.all()
-    return render_template("home.html", users=users)
+    locations = Cachelocations.query.all()
+    return render_template("home.html", locations=locations, users=users)
+
 
 
 # change for production env

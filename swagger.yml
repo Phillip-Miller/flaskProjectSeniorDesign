@@ -25,11 +25,36 @@ components:
           items:
             type: integer
 
-    #define location schema that you want passed here:
+    Location:
+      type: object
+      properties:
+        cachename:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+        hints:
+          type: string
+        trivia:
+          type: string
+        difficulty:
+          type: integer
+        radius:
+          type: integer
+
   parameters:
     user_id:
       name: "user_id"
       description: "pull by user_id"
+      in: path
+      required: True
+      schema:
+        type: integer
+
+    location_id:
+      name: "location_id"
+      description: "pull by location_id"
       in: path
       required: True
       schema:
@@ -100,4 +125,83 @@ paths:
       responses:
         "204":
           description: "Successfully deleted user"
+
+  /location:
+    get:
+      operationId: "location.read_all"
+      tags:
+        - "Location"
+      summary: "Read the list of locations"
+      responses:
+        "200":
+          description: "Successfully read location list"
+    post:
+      operationId: "location.create"
+      tags:
+        - "Location"
+      summary: "Create a new location"
+      requestBody:
+        description: "Location to create"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "location"
+              $ref: "#/components/schemas/Location"
+      responses:
+        "201":
+          description: "Successfully created location"
+  /location/{location_id}:
+        get:
+          operationId: "location.read_one"
+          tags:
+            - "Location"
+          summary: "Read location object from location id"
+          parameters:
+            - name: "location_id"
+              in: path
+              description: "pull by location id"
+              required: true
+              schema:
+                type: integer
+          responses:
+            "200":
+              description: "Successfully read location"
+        put:
+          tags:
+            - "Location"
+          operationId: "location.update"
+          summary: "Update a location"
+          parameters:
+            - name: "location_id"
+              in: path
+              description: "pull by location id"
+              required: true
+              schema:
+                type: integer
+          responses:
+            "200":
+              description: "Successfully updated location"
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  x-body-name: "location"
+                  $ref: "#/components/schemas/Location"
+        delete:
+          tags:
+            - "Location"
+          operationId: "location.delete"
+          summary: "Delete a location"
+          parameters:
+            - name: "location_id"
+              in: path
+              description: "pull by location id"
+              required: true
+              schema:
+                type: integer
+          responses:
+            "204":
+              description: "Successfully deleted location"
+
 
