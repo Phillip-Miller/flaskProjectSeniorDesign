@@ -72,4 +72,4 @@ class CacheLocationsSchema(ma.SQLAlchemyAutoSchema):
 
 
 cache_location_schema = CacheLocationsSchema()
-cache_locations_schema = CacheLocationsSchema()
+cache_locations_schema = CacheLocationsSchema(many=True)
