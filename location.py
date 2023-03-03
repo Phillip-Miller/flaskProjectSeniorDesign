@@ -21,13 +21,13 @@ def read_all():
     return cache_locations_schema.dump(cache_locations)
 
 
-def read_one(cache_location_id: int):
-    cache_location = CacheLocations.query.filter(CacheLocations.id == cache_location_id).one_or_none()
+def read_one(location_id: int):
+    cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
 
     if cache_location is not None:
         return cache_location_schema.dump(cache_location)
     else:
-        abort(404, f"Cache location with id {cache_location_id} not found")
+        abort(404, f"Cache location with id {location_id} not found")
 
 
 def update(cache_location_id: int, cache_location):
