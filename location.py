@@ -3,17 +3,17 @@ from models import CacheLocations, cache_location_schema, cache_locations_schema
 from config import db, app
 
 
-def create(location):  # this was the error here
+def create(body):  # this was the error here
     existing_cache_location = CacheLocations.query.filter(
-        CacheLocations.cachename == location.get('cachename')).one_or_none()
+        CacheLocations.cachename == body.get('cachename')).one_or_none()
 
     if existing_cache_location is None:
-        new_cache_location = cache_location_schema.load(location, session=db.session)
+        new_cache_location = cache_location_schema.load(body, session=db.session)
         db.session.add(new_cache_location)
         db.session.commit()
         return cache_location_schema.dump(new_cache_location), 201
     else:
-        abort(406, f"Cache location with name {location.get('cachename')} already exists")
+        abort(406, f"Cache location with name {body.get('cachename')} already exists")
 
 
 def read_all():
@@ -30,11 +30,11 @@ def read_one(location_id: int):
         abort(404, f"Cache location with id {location_id} not found")
 
 
-def update(location_id: int, location):
+def update(location_id: int, body):
     existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
 
     if existing_cache_location:
-        update_cache_location = cache_location_schema.load(location, session=db.session)
+        update_cache_location = cache_location_schema.load(body, session=db.session)
         existing_cache_location.cachename = update_cache_location.cachename
         existing_cache_location.latitude = update_cache_location.latitude
         existing_cache_location.longitude = update_cache_location.longitude

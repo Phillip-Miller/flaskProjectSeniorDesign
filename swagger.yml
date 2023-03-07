@@ -11,10 +11,16 @@ servers:
 
 components:
   schemas:
-    User:
+    New User:
       type: object
       required:
         - username
+      properties:
+        username:
+          type: string
+
+    Patch User:
+      type: object
       properties:
         username:
           type: string
@@ -24,10 +30,33 @@ components:
           type: array
           items:
             type: integer
-    Location:
+
+    New Location:
       type: object
       required:
         - cachename
+        - longitude
+        - latitude
+        - longitude
+        - difficulty
+      properties:
+        cachename:
+          type: string
+        longitude:
+          type: number
+        latitude:
+          type: number
+        hints:
+          type: string
+        trivia:
+          type: string
+        difficulty:
+          type: integer
+        radius:
+          type: integer
+
+    Patch Location:
+      type: object
       properties:
         cachename:
           type: string
@@ -83,8 +112,7 @@ paths:
         content:
           application/json:
             schema:
-              x-body-name: "user"
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/New User"
       responses:
         "201":
           description: "Successfully created user"
@@ -118,8 +146,7 @@ paths:
         content:
           application/json:
             schema:
-              x-body-name: "user"
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Patch User"
     delete:
       tags:
         - "User"
@@ -153,8 +180,7 @@ paths:
         content:
           application/json:
             schema:
-              x-body-name: "location"
-              $ref: "#/components/schemas/Location"
+              $ref: "#/components/schemas/New Location"
       responses:
         "201":
           description: "Successfully created location"
@@ -177,7 +203,7 @@ paths:
           description: "Successfully read location"
         "404":
           description: "Location not found"
-    put:
+    patch:
       tags:
         - "Location"
       operationId: "location.update"
@@ -198,8 +224,7 @@ paths:
         content:
           application/json:
             schema:
-              x-body-name: "location"
-              $ref: "#/components/schemas/Location"
+              $ref: "#/components/schemas/Patch Location"
     delete:
       tags:
         - "Location"
