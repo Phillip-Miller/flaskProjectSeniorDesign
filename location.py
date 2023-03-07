@@ -30,31 +30,31 @@ def read_one(location_id: int):
         abort(404, f"Cache location with id {location_id} not found")
 
 
-def update(cache_location_id: int, cache_location):
-    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == cache_location_id).one_or_none()
+def update(location_id: int, location):
+    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
 
     if existing_cache_location:
-        update_cache_location = cache_location_schema.load(cache_location, session=db.session)
+        update_cache_location = cache_location_schema.load(location, session=db.session)
         existing_cache_location.cachename = update_cache_location.cachename
         existing_cache_location.latitude = update_cache_location.latitude
         existing_cache_location.longitude = update_cache_location.longitude
         existing_cache_location.hints = update_cache_location.hints
         existing_cache_location.trivia = update_cache_location.trivia
         existing_cache_location.difficulty = update_cache_location.difficulty
-        existing_cache_location.radius_accuracy = update_cache_location.radius_accuracy
+        existing_cache_location.radius_accuracy = update_cache_location.radius
         db.session.merge(existing_cache_location)
         db.session.commit()
         return cache_location_schema.dump(existing_cache_location), 201
     else:
-        abort(404, f"Cache location with id {cache_location_id} not found")
+        abort(404, f"Cache location with id {location_id} not found")
 
 
-def delete(cache_location_id: int):
-    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == cache_location_id).one_or_none()
+def delete(location_id: int):
+    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
 
     if existing_cache_location:
         db.session.delete(existing_cache_location)
         db.session.commit()
-        return make_response(f"Cache location with id {cache_location_id} successfully deleted", 200)
+        return cache_location_schema.dump(existing_cache_location), 204
     else:
-        abort(404, f"Cache location with id {cache_location_id} not found")
+        abort(404, f"Location with id {location_id} not found")

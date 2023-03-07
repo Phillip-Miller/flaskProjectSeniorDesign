@@ -100,6 +100,8 @@ paths:
       responses:
         "200":
           description: "Successfully read user"
+        "404":
+          description: "User not found"
     put:
       tags:
         - "User"
@@ -108,8 +110,10 @@ paths:
       parameters:
         - $ref: "#/components/parameters/user_id"
       responses:
-        "200":
+        "201":
           description: "Successfully updated user"
+        "404":
+          description: "User ID not found"
       requestBody:
         content:
           application/json:
@@ -126,6 +130,8 @@ paths:
       responses:
         "204":
           description: "Successfully deleted user"
+        "404":
+          description: "User not found"
 
   /location:
     get:
@@ -169,6 +175,8 @@ paths:
       responses:
         "200":
           description: "Successfully read location"
+        "404":
+          description: "Location not found"
     put:
       tags:
         - "Location"
@@ -182,8 +190,10 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        "201":
           description: "Successfully updated location"
+        "404":
+          description: "Location not found"
       requestBody:
         content:
           application/json:
@@ -205,5 +215,8 @@ paths:
       responses:
         "204":
           description: "Successfully deleted location"
+        "404":
+          description: "Location not found"
+
 
 
