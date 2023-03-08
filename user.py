@@ -35,14 +35,8 @@ def read_one(user_id: int):
 def update(user_id: int, body):  # something is broken here not sure what
     existing_user = User.query.filter(User.id == user_id).one_or_none()
 
-    if existing_user:  # @FIXME not updating every field yet @FIXME not sure if it validates bad input
-
-        update_user = user_schema.load(body, session=db.session)
-        # existing_user = user_schema.load(update_user, partial=True)
-
-        existing_user.username = update_user.username
-        existing_user.score = update_user.score
-
+    if existing_user:
+        existing_user = user_schema.load(body, instance=existing_user)
         db.session.merge(existing_user)
         db.session.commit()
         return user_schema.dump(existing_user), 201

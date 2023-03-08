@@ -130,7 +130,7 @@ paths:
           description: "Successfully read user"
         "404":
           description: "User not found"
-    put:
+    patch:
       tags:
         - "User"
       operationId: "user.update"
