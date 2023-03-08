@@ -32,6 +32,7 @@ class User(db.Model):
         return str({"user": self.user, "score": {self.score}, "created": {str(self.date_created)}})
 
 
+# TIMESTAMP = LAST MODIFIED
 class CacheLocations(db.Model):
     __tablename__ = "cache_locations"
     id = db.Column(db.Integer, primary_key=True)

@@ -207,7 +207,7 @@ paths:
       tags:
         - "Location"
       operationId: "location.update"
-      summary: "Update a location"
+      summary: "Update a location -- include whatever keys you want to update"
       parameters:
         - name: "location_id"
           in: path

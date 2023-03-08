@@ -32,16 +32,8 @@ def read_one(location_id: int):
 
 def update(location_id: int, body):
     existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
-
     if existing_cache_location:
-        update_cache_location = cache_location_schema.load(body, session=db.session)
-        existing_cache_location.cachename = update_cache_location.cachename
-        existing_cache_location.latitude = update_cache_location.latitude
-        existing_cache_location.longitude = update_cache_location.longitude
-        existing_cache_location.hints = update_cache_location.hints
-        existing_cache_location.trivia = update_cache_location.trivia
-        existing_cache_location.difficulty = update_cache_location.difficulty
-        existing_cache_location.radius_accuracy = update_cache_location.radius
+        existing_cache_location = cache_location_schema.load(body, instance=existing_cache_location)
         db.session.merge(existing_cache_location)
         db.session.commit()
         return cache_location_schema.dump(existing_cache_location), 201
