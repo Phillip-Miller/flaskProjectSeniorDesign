@@ -15,12 +15,6 @@ with app.app.app_context():
     if not db_active:
         app.app.logger.info("Making new db")
         config.db.create_all()
-    # db.session.add(User('admin', 'admin@example.com'))
-    # db.session.add(User('guest', 'guest@example.com'))
-    # db.session.commit()
-    #
-    # users = User.query.all()
-    # print(users)
 
 
 @app.route("/")
