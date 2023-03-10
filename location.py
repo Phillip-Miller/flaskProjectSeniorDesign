@@ -1,11 +1,11 @@
 from flask import abort, make_response
-from models import CacheLocations, cache_location_schema, cache_locations_schema
+from models import CacheLocation, cache_location_schema, cache_locations_schema
 from config import db, app
 
 
 def create(body):  # this was the error here
-    existing_cache_location = CacheLocations.query.filter(
-        CacheLocations.cachename == body.get('cachename')).one_or_none()
+    existing_cache_location = CacheLocation.query.filter(
+        CacheLocation.cachename == body.get('cachename')).one_or_none()
 
     if existing_cache_location is None:
         new_cache_location = cache_location_schema.load(body, session=db.session)
@@ -17,12 +17,12 @@ def create(body):  # this was the error here
 
 
 def read_all():
-    cache_locations = CacheLocations.query.all()
+    cache_locations = CacheLocation.query.all()
     return cache_locations_schema.dump(cache_locations)
 
 
 def read_one(location_id: int):
-    cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
+    cache_location = CacheLocation.query.filter(CacheLocation.id == location_id).one_or_none()
 
     if cache_location is not None:
         return cache_location_schema.dump(cache_location)
@@ -31,7 +31,7 @@ def read_one(location_id: int):
 
 
 def update(location_id: int, body):
-    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
+    existing_cache_location = CacheLocation.query.filter(CacheLocation.id == location_id).one_or_none()
     if existing_cache_location:
         existing_cache_location = cache_location_schema.load(body, instance=existing_cache_location)
         db.session.merge(existing_cache_location)
@@ -42,7 +42,7 @@ def update(location_id: int, body):
 
 
 def delete(location_id: int):
-    existing_cache_location = CacheLocations.query.filter(CacheLocations.id == location_id).one_or_none()
+    existing_cache_location = CacheLocation.query.filter(CacheLocation.id == location_id).one_or_none()
 
     if existing_cache_location:
         db.session.delete(existing_cache_location)

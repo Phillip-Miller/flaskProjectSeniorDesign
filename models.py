@@ -33,7 +33,7 @@ class User(db.Model):
 
 
 # TIMESTAMP = LAST MODIFIED
-class CacheLocations(db.Model):
+class CacheLocation(db.Model):
     __tablename__ = "cache_locations"
     id = db.Column(db.Integer, primary_key=True)
     cachename = db.Column(db.String(64))
@@ -67,7 +67,7 @@ users_schema = UserSchema(many=True)
 
 class CacheLocationsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = CacheLocations
+        model = CacheLocation
         load_instance = True
         sqla_session = db.session
 
