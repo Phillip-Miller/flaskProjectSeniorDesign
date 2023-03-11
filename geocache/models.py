@@ -1,8 +1,10 @@
 # models.py
-
-
 from datetime import datetime
-from config import db, ma
+from flask_marshmallow import Marshmallow
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+ma = Marshmallow()
 
 follows = db.Table('follows',
                    db.Column('follower_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),

@@ -12,4 +12,9 @@ note need to run to generate the api ui
 
 ```pip install "connexion[swagger-ui]"```
 
+to run tests (and ignore 3rd party depreciation warnings:
+
+```pytest tests -W ignore::DeprecationWarning```
+
+
 

@@ -1,6 +1,5 @@
 from flask import abort, make_response, jsonify
-from config import db, app
-from models import User, user_schema, users_schema
+from models import User, user_schema, users_schema, db
 
 
 # @FIXME following should be null at creation
