@@ -1,5 +1,6 @@
-from flask import render_template
-from models import User, CacheLocation
+import os
+
+from connexion.resolver import RelativeResolver
 import pathlib
 import connexion
 import logging
@@ -7,31 +8,28 @@ import logging
 
 def create_app(config_filename=None):
     basedir = pathlib.Path(__file__).parent.resolve()
-    connex_app = connexion.App(__name__, specification_dir=basedir)
+    connex_app = connexion.FlaskApp(__name__, specification_dir=basedir)
     app = connex_app.app  # flask instance!
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'geo.db'}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.logger.setLevel(logging.INFO)
-    # app.add_api(basedir / "swagger.yml")
-    connex_app.add_api('swagger.yml')
+    connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
 
-    from models import db
+    from geocache.models import db
     db.init_app(app)
 
-    # with app.app.app_context():
-    #     db_active = False
-    #     for file in os.listdir(config.basedir):  # refers to where file located not where its being run from
-    #         if file.endswith(".db"):
-    #             db_active = True
-    #     if not db_active:
-    #         app.app.logger.info("Making new db")
-    #         config.db.create_all()
+    with app.app_context():
+        db_active = False
+        for file in os.listdir(basedir):  # basedir where init is located
+            if file == "geo.db":
+                db_active = True
+        if not db_active:
+            app.logger.info("Making new db")
+            db.create_all()
 
     @app.route("/")
     def home():
-        users = User.query.all()
-        locations = CacheLocation.query.all()
-        return render_template("home.html", locations=locations, users=users)
+        return ("HelloWorld")
 
     return app
 

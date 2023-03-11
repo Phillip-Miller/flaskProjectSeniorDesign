@@ -4,9 +4,9 @@ To view our rest api documentation:
 
 ``` http://127.0.0.1:8000/api/ui/ ```
 
-To run local host:
+To run local host from flaskProjectSeniorDesign Directory:
 
-``` python app.py```
+flask --app geocache run
 
 note need to run to generate the api ui
 

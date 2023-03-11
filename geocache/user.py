@@ -1,5 +1,5 @@
 from flask import abort, make_response, jsonify
-from models import User, user_schema, users_schema, db
+from geocache.models import User, user_schema, users_schema, db
 
 
 # @FIXME following should be null at creation

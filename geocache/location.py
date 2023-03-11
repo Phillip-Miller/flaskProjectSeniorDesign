@@ -1,5 +1,5 @@
 from flask import abort, make_response
-from models import CacheLocation, cache_location_schema, cache_locations_schema, db
+from geocache.models import CacheLocation, cache_location_schema, cache_locations_schema, db
 
 
 def create(body):  # this was the error here
