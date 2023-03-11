@@ -9,5 +9,5 @@ def test_new_location():
 
 
 def test_new_user():
-    # check hash password is not password if implemented
-    pass
+    user_with_score = models.User(username="schmeichel", score=10)
+    assert user_with_score.score == 10

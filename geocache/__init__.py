@@ -13,6 +13,7 @@ def create_app(config_filename=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'geo.db'}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.logger.setLevel(logging.INFO)
+    
     connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
 
     from geocache.models import db
