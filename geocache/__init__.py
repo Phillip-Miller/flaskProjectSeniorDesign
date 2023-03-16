@@ -9,12 +9,11 @@ import logging
 def create_app(config_filename=None):
     basedir = pathlib.Path(__file__).parent.resolve()
     connex_app = connexion.FlaskApp(__name__, specification_dir=basedir)
+    connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
     app = connex_app.app  # flask instance!
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'geo.db'}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.logger.setLevel(logging.INFO)
-    
-    connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
 
     from geocache.models import db
     db.init_app(app)
