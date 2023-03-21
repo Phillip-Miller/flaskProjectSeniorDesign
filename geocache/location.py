@@ -46,6 +46,7 @@ def delete(location_id: int):
     if existing_cache_location:
         db.session.delete(existing_cache_location)
         db.session.commit()
+        # @FIXME this message is not coming across and unconvincing reply in API Return
         return cache_location_schema.dump(existing_cache_location), 204
     else:
         abort(404, f"Location with id {location_id} not found")
