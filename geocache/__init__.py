@@ -6,26 +6,26 @@ import connexion
 import logging
 
 
-def create_app(config_filename=None):
+def create_app(config="config.Config"):
+    """
+    Acceptable Values:
+
+    "config.ProdConfig"
+    "config.DevConfig"
+    """
     basedir = pathlib.Path(__file__).parent.resolve()
     connex_app = connexion.FlaskApp(__name__, specification_dir=basedir)
     connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
     app = connex_app.app  # flask instance!
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{basedir / 'geo.db'}"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config.from_object(config)
+    # app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'geo.db')}"
     app.logger.setLevel(logging.INFO)
 
     from geocache.models import db
     db.init_app(app)
 
     with app.app_context():
-        db_active = False
-        for file in os.listdir(basedir):  # basedir where init is located
-            if file == "geo.db":
-                db_active = True
-        if not db_active:
-            app.logger.info("Making new db")
-            db.create_all()
+        db.create_all()  # does not overwrite so can use each time
 
     @app.route("/")
     def home():
@@ -34,7 +34,7 @@ def create_app(config_filename=None):
     return app
 
 
-# # change for production env
+# change for production env
 if __name__ == '__main__':
     # default port 5000 can clash with mac airplay
     my_app = create_app()

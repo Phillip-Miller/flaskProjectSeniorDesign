@@ -1,13 +1,21 @@
 # flaskProjectSeniorDesign
+
 ## Installation:
 
- pc ```conda env create -f flaskENV.yml```
+pc ```conda env create -f flaskENV.yml```
 
- mac ```conda env create -f macENV.yml```
+mac ```conda env create -f macENV.yml```
 
 activate environment
 
+## Environment Variables:
+
+SECRET_KEY='insertkeyhere' -> can put inside a .env file if desired
+
+Used to seed encryption
+
 ## Run
+
 Run local host from flaskProjectSeniorDesign Directory:
 
 ```flask --app geocache run```
