@@ -1,4 +1,4 @@
-# swagger.yml
+# openapi.yml
 
 openapi: 3.0.0
 info:
@@ -10,6 +10,13 @@ servers:
 
 
 components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Auth
+      in: header
+      x-apikeyInfoFunc: config.apikey_auth
+
   schemas:
     New User:
       type: object
@@ -90,6 +97,9 @@ components:
       schema:
         type: integer
 
+security: #Globally applies this security to all functions -- JWT for granularity is better
+  - api_key: [ ] #if you apply this on individual function scale can but which scopes you want in the list
+
 paths:
   #relative url of api
   /user:
@@ -101,6 +111,7 @@ paths:
       responses:
         "200":
           description: "Successfully read user list"
+
     post:
       operationId: "user.create"
       tags:
@@ -116,6 +127,7 @@ paths:
       responses:
         "201":
           description: "Successfully created user"
+
 
   /user/{user_id}:
     get:

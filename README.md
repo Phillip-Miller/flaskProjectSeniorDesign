@@ -10,9 +10,7 @@ activate environment
 
 ## Environment Variables:
 
-SECRET_KEY='insertkeyhere' -> can put inside a .env file if desired
-
-Used to seed encryption
+SECRET_KEY= {"putTheKeyHere": {"uid": 100}} -> can put inside a .env file if desired in the outer level to populate ENVs
 
 ## Run
 
@@ -29,3 +27,11 @@ Run tests (and ignore 3rd party depreciation warnings):
 To view our rest api documentation:
 
 ``` http://127.0.0.1:8000/api/ui/ ```
+
+### ToDO
+
+Implement log in with OAuth2.0 ClientSide -> Will ask for user to login with google etc
+https://fusionauth.io/learn/expert-advice/oauth/modern-guide-to-oauth#third-party-login-and-registration
+
+Implement API Key Authentication with -> machine communicates with machine
+https://fusionauth.io/learn/expert-advice/oauth/modern-guide-to-oauth#machine-to-machine-authorization
