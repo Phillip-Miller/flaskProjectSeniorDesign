@@ -7,4 +7,3 @@ python-dotenv
 SQLAlchemy
 connexion
 flask-marshmallow
-swagger-ui-bundle
