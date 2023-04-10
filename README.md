@@ -1,5 +1,9 @@
 # flaskProjectSeniorDesign
 
+## Deploying on azure
+
+https://learn.microsoft.com/en-us/azure/app-service/tutorial-python-postgresql-app?toc=%2Fazure%2Fdeveloper%2Fpython%2Ftoc.json&bc=%2Fazure%2Fdeveloper%2Fbreadcrumb%2Ftoc.json&tabs=flask%2Cwindows&pivots=deploy-portal
+
 ## Installation:
 
 pc ```conda env create -f flaskENV.yml```
@@ -10,7 +14,8 @@ activate environment
 
 ## Environment Variables:
 
-API_KEY_DICT= {"putTheKeyHere": {"uid": 100}} -> can put inside a .env file if desired in the outer level to populate ENVs
+API_KEY_DICT= {"putTheKeyHere": {"uid": 100}} -> can put inside a .env file if desired in the outer level to populate
+ENVs
 
 ## Run
 

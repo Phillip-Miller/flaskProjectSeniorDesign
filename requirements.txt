@@ -1,0 +1,10 @@
+Flask
+Flask-Migrate
+Flask-SQLAlchemy
+flask_wtf
+psycopg2
+python-dotenv
+SQLAlchemy
+connexion
+flask-marshmallow
+swagger-ui-bundle
