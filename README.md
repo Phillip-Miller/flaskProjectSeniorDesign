@@ -10,7 +10,7 @@ activate environment
 
 ## Environment Variables:
 
-SECRET_KEY= {"putTheKeyHere": {"uid": 100}} -> can put inside a .env file if desired in the outer level to populate ENVs
+API_KEY_DICT= {"putTheKeyHere": {"uid": 100}} -> can put inside a .env file if desired in the outer level to populate ENVs
 
 ## Run
 
