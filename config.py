@@ -9,14 +9,15 @@ from connexion.exceptions import OAuthProblem
 basedir = pathlib.Path(__file__).parent.resolve()
 load_dotenv(path.join(basedir, '.env'))
 
-KEY_DB = {}
+KEY_DB = json.loads(environ.get('API_KEY_DICT'))
 
 
 class Config:
     """Base config."""
 
     FLASK_ENV = 'development'
-    KEY_DB = json.loads(environ.get('API_KEY_DICT'))
+    print(KEY_DB)
+
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'geocache', 'geo.db')}"  # Windows slashes can be weird
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -42,7 +43,7 @@ class Testing(Config):
 
 def apikey_auth(token, required_scopes):
     info = KEY_DB.get(token, None)
-
+    print(token, info)
     if not info:
         raise OAuthProblem("Invalid token")
 
