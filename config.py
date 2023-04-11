@@ -47,6 +47,7 @@ class ProdConfig(Config):
         SQLALCHEMY_TRACK_MODIFICATIONS = False
     except KeyError:
         print("not in production env")
+    print(SQLALCHEMY_DATABASE_URI)
 
 
 class Testing(Config):

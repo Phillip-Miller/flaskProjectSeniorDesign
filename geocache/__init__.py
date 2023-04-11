@@ -25,7 +25,6 @@ def create_app(config="config.Config"):
     connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
     app = connex_app.app  # flask instance!
     app.config.from_object(config)
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'geo.db')}"
     app.logger.setLevel(logging.INFO)
     migrate = Migrate()
 
