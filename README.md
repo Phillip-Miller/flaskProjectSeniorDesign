@@ -15,6 +15,7 @@ activate environment
 ## Environment Variables:
 
 API_KEY_DICT= {"putTheKeyHere": {"uid": 100}} ->  put inside a .env file if desired in the outer level to fill ENVs
+FLASK_CONFIG =config.ProdConfig
 
 ## Run
 

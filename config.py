@@ -43,7 +43,7 @@ class ProdConfig(Config):
         )
         DEBUG = False
         TESTING = False
-        SQLALCHEMY_DATABASE_URI = environ.get('PROD_DATABASE_URI')
+        SQLALCHEMY_DATABASE_URI = DATABASE_URI
         SQLALCHEMY_TRACK_MODIFICATIONS = False
     except KeyError:
         print("not in production env")
