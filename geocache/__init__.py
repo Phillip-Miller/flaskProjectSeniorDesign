@@ -4,6 +4,8 @@ from connexion.resolver import RelativeResolver
 import pathlib
 import connexion
 import logging
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 
 def create_app(config="config.Config"):
@@ -21,6 +23,7 @@ def create_app(config="config.Config"):
     # app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'geo.db')}"
     app.logger.setLevel(logging.INFO)
 
+    migrate = Migrate(app, SQLAlchemy())
     from geocache.models import db
     db.init_app(app)
 
