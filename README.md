@@ -3,6 +3,7 @@
 ## Deploying on azure
 
 https://learn.microsoft.com/en-us/azure/app-service/tutorial-python-postgresql-app?toc=%2Fazure%2Fdeveloper%2Fpython%2Ftoc.json&bc=%2Fazure%2Fdeveloper%2Fbreadcrumb%2Ftoc.json&tabs=flask%2Cwindows&pivots=deploy-portal
+On push to main the server is automatically run using the startup.sh script defined in this directory
 
 ## Installation:
 
