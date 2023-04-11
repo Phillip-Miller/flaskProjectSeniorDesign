@@ -45,9 +45,10 @@ class ProdConfig(Config):
         TESTING = False
         SQLALCHEMY_DATABASE_URI = DATABASE_URI
         SQLALCHEMY_TRACK_MODIFICATIONS = False
+        print(f"PROD DB URI: {SQLALCHEMY_DATABASE_URI}")
+
     except KeyError:
         print("not in production env")
-    print(SQLALCHEMY_DATABASE_URI)
 
 
 class Testing(Config):

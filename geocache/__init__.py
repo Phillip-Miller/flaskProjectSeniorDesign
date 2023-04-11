@@ -30,9 +30,10 @@ def create_app(config="config.Config"):
 
     from geocache.models import db
     db.init_app(app)
-    migrate.init_app(app, db)
+    # migrate.init_app(app, db)
 
-    if config != "config.ProdConfig":
+    if True or config != "config.ProdConfig":
+        print("Non Prod Config: Creating DB")
         with app.app_context():
             db.create_all()  # does not overwrite so can use each time
 
