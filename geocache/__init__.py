@@ -4,7 +4,6 @@ from connexion.resolver import RelativeResolver
 import pathlib
 import connexion
 import logging
-from flask_migrate import Migrate
 
 
 # @FIXME not sure how to pass in values here so using env variable instead
@@ -19,26 +18,21 @@ def create_app(config="config.Config"):
     env_value = os.environ.get('FLASK_CONFIG')
     if env_value is not None:
         config = env_value
-    print(f"USING CONFIG: {config}")
     basedir = pathlib.Path(__file__).parent.resolve()
     connex_app = connexion.FlaskApp(__name__, specification_dir=basedir)
     connex_app.add_api('swagger.yml', resolver=RelativeResolver('geocache'))
     app = connex_app.app  # flask instance!
     app.config.from_object(config)
     app.logger.setLevel(logging.INFO)
-    migrate = Migrate()
 
     from geocache.models import db
     db.init_app(app)
-    # migrate.init_app(app, db)
 
-    if True or config != "config.ProdConfig":
-        print("Non Prod Config: Creating DB")
-        with app.app_context():
-            db.create_all()  # does not overwrite so can use each time
+    with app.app_context():
+        db.create_all()  # does not overwrite so can use each time
 
     @app.route("/")
     def home():
-        return ("HelloWorld")
+        return ("universitygeocaching-> \\api\\ui for documentation")
 
     return app

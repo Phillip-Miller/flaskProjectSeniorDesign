@@ -2,9 +2,9 @@
 
 openapi: 3.0.0
 info:
-  title: "Geocache Flask REST API"
+  title: "Geocache REST API"
   description: "API to manipulate Location objects and User Objects"
-  version: "0.0.1"
+  version: "1.0"
 servers:
   - url: "/api"
 
