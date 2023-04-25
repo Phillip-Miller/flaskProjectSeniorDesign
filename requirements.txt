@@ -4,10 +4,10 @@ flask_wtf
 psycopg2
 python-dotenv
 SQLAlchemy
-connexion
+connexion=2.14.0
 marshmallow
 flask-marshmallow
-connexion[swagger-ui]
+connexion[swagger-ui]=0.0.9
 Flask-RESTful
 marshmallow-sqlalchemy
 pytest
