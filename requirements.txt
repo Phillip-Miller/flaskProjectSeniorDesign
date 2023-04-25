@@ -4,7 +4,7 @@ flask_wtf
 psycopg2
 python-dotenv
 SQLAlchemy
-connexion=2.14.0
+connexion==2.14.0
 marshmallow
 flask-marshmallow
 connexion[swagger-ui]==0.0.9
