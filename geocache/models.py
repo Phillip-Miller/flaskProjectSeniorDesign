@@ -9,6 +9,10 @@ ma = Marshmallow()
 follows = db.Table('follows',
                    db.Column('follower_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'), primary_key=True))
+completed_caches = db.Table('completed_caches',
+                            db.Column('cache_id', db.Integer, db.ForeignKey('cache_locations.id'), primary_key=True),
+                            db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
+                            )
 
 
 # https://hackmd.io/@jpshafto/H1VbmP3yOclass
@@ -17,6 +21,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # this autoincrements by default
     username = db.Column(db.String(32), unique=True)
     score = db.Column(db.Integer, default=0)
+    completed_caches = db.relationship('CacheLocation', secondary=completed_caches, backref="users")
+
     following = db.relationship(
         "User",
         secondary=follows,
@@ -44,6 +50,7 @@ class CacheLocation(db.Model):
     hints = db.Column(db.String(256))
     trivia = db.Column(db.String(256))
     difficulty = db.Column(db.SmallInteger)
+    verificationString = db.Column(db.String(20))
     radius = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -71,6 +78,8 @@ class CacheLocationsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = CacheLocation
         load_instance = True
+        include_fk = True
+        include_relationships = True
         sqla_session = db.session
 
 

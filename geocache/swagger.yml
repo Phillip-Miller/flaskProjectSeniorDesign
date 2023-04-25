@@ -33,10 +33,15 @@ components:
           type: string
         score:
           type: integer
+        completed_caches:
+          type: array
+          items:
+            type: integer
         following:
           type: array
           items:
             type: integer
+
 
     New Location:
       type: object
@@ -46,6 +51,7 @@ components:
         - latitude
         - longitude
         - difficulty
+        - verificationString
       properties:
         cachename:
           type: string
@@ -59,6 +65,8 @@ components:
           type: string
         difficulty:
           type: integer
+        verificationString:
+          type: string
         radius:
           type: integer
 
@@ -77,6 +85,8 @@ components:
           type: string
         difficulty:
           type: integer
+        verificationString:
+          type: string
         radius:
           type: integer
 
