@@ -43,6 +43,8 @@ components:
           type: integer
         radius:
           type: integer
+        imageURL: # Add imageURL property
+          type: string
 
   parameters:
     user_id:
@@ -136,22 +138,12 @@ paths:
       responses:
         "200":
           description: "Successfully read location list"
-    post:
-      operationId: "location.create"
-      tags:
-        - "Location"
-      summary: "Create a new location"
-      requestBody:
-        description: "Location to create"
-        required: True
-        content:
-          application/json:
-            schema:
-              x-body-name: "location"
-              $ref: "#/components/schemas/Location"
-      responses:
-        "201":
-          description: "Successfully created location"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Location"
 
   /location/{location_id}:
     get:
