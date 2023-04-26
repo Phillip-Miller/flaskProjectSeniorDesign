@@ -29,6 +29,9 @@ def create_app(config="config.Config"):
     db.init_app(app)
 
     with app.app_context():
+        if config == "config.ProdConfig":
+            db.session.commit()
+            db.drop_all()
         db.create_all()  # does not overwrite so can use each time
 
     @app.route("/")
