@@ -1,10 +1,10 @@
-Flask
+Flask<=2.2.3
 Flask-SQLAlchemy
 flask_wtf
 psycopg2
 python-dotenv
 SQLAlchemy
-connexion==2.14.0
+connexion
 marshmallow
 flask-marshmallow
 connexion[swagger-ui]
