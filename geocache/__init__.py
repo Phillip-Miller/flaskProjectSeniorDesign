@@ -36,6 +36,6 @@ def create_app(config="config.Config"):
 
     @app.route("/")
     def home():
-        return ("universitygeocaching/api/ui -> documentation")
+        return ("Nice job on your first quest -- UG Team")
 
     return app
