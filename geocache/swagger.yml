@@ -18,6 +18,7 @@ components:
       x-apikeyInfoFunc: config.apikey_auth
 
   schemas:
+
     New User:
       type: object
       required:
@@ -90,7 +91,16 @@ components:
         radius:
           type: integer
 
+
   parameters:
+    verification_string:
+      name: "verify_string"
+      description: "verify a QR string and return which quest is completed"
+      in: path
+      required: True
+      schema:
+        type: string
+
     user_id:
       name: "user_id"
       description: "pull by user_id"
@@ -112,6 +122,8 @@ security: #Globally applies this security to all functions -- JWT for granularit
 
 paths:
   #relative url of api
+
+
   /user:
     get:
       operationId: "user.read_all"
@@ -207,6 +219,7 @@ paths:
         "201":
           description: "Successfully created location"
 
+
   /location/{location_id}:
     get:
       operationId: "location.read_one"
@@ -262,6 +275,25 @@ paths:
       responses:
         "204":
           description: "Successfully deleted location"
+        "404":
+          description: "Location not found"
+
+  /qrverification/{verification_string}:
+    get:
+      operationId: "location.verify_code"
+      tags:
+        - "Location"
+      summary: "Verify QR code and return matching location"
+      parameters:
+        - name: "verification_string"
+          in: path
+          description: "verification string provided by code"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully found location"
         "404":
           description: "Location not found"
 
