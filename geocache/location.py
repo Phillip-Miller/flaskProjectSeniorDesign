@@ -54,9 +54,9 @@ def delete(location_id: int):
 
 def verify_code(verification_string: str):
     cache_location = CacheLocation.query.filter(
-        CacheLocation.verificationString == verification_string).one_or_none()
+        CacheLocation.verificationString == verification_string).first()
 
     if cache_location is not None:
         return cache_location_schema.dump(cache_location)
     else:
-        abort(404, f"No cache found with matching verification string: {verification_string}")
+        abort(404, f"No cache found with matching verification string: {verification_string} not found")

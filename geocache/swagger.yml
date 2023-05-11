@@ -95,7 +95,7 @@ components:
   parameters:
     verification_string:
       name: "verify_string"
-      description: "verify a QR string and return which quest is completed"
+      description: "String to embed in qr code to verify quest completion. MUST be unique"
       in: path
       required: True
       schema:
@@ -283,7 +283,7 @@ paths:
       operationId: "location.verify_code"
       tags:
         - "Location"
-      summary: "Verify QR code and return matching location"
+      summary: "Verify QR code and return first matching location to the string"
       parameters:
         - name: "verification_string"
           in: path
